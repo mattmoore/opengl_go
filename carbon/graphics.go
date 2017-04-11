@@ -59,7 +59,9 @@ func (g *Graphics) Init() {
 
 	version := gl.GoStr(gl.GetString(gl.VERSION))
 	fmt.Println("OpenGL version", version)
+}
 
+func (g *Graphics) Render() {
 	// Configure the vertex and fragment shaders
 	program, err := newProgram(vertexShader, fragmentShader)
 	if err != nil {
