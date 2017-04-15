@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/mattmoore/opengl_go/carbon"
 	"github.com/mattmoore/opengl_go/carbon/geometry"
-	"github.com/veandco/go-sdl2/sdl"
 	"runtime"
 )
 
@@ -16,14 +15,14 @@ func main() {
 	engine.Graphics = &carbon.Graphics{
 		GraphicsOptions: &carbon.GraphicsOptions{1280, 720},
 	}
+
 	engine.Init()
 
 	for _, actor := range loadActors() {
 		engine.Actors = append(engine.Actors, actor)
 	}
-	engine.Graphics.Render()
 
-	sdl.Delay(1000)
+	engine.Graphics.Render()
 	engine.Quit()
 }
 
