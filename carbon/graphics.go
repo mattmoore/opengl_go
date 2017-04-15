@@ -149,6 +149,8 @@ func (g *Graphics) Render() {
 		gl.BindTexture(gl.TEXTURE_2D, texture)
 
 		gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
+
+		sdl.GL_SwapWindow(g.Window)
 	}
 }
 
