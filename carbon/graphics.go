@@ -18,6 +18,7 @@ type Graphics struct {
 	GraphicsOptions *GraphicsOptions
 	Window          *sdl.Window
 	Context         sdl.GLContext
+	Running         bool
 }
 
 type GraphicsOptions struct {
@@ -119,15 +120,9 @@ func (g *Graphics) Render() {
 	angle := 0.0
 	previousTime := sdl.GetTicks()
 
-	var event sdl.Event
-	var running bool = true
-	for running {
-		for event = sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
-			switch event.(type) {
-			case *sdl.QuitEvent:
-				running = false
-			}
-		}
+	g.Running = true
+	for g.Running {
+		g.ProcessEvents()
 
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
@@ -151,6 +146,15 @@ func (g *Graphics) Render() {
 		gl.DrawArrays(gl.TRIANGLES, 0, 6*2*3)
 
 		sdl.GL_SwapWindow(g.Window)
+	}
+}
+
+func (g *Graphics) ProcessEvents() {
+	for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+		switch event.(type) {
+		case *sdl.QuitEvent:
+			g.Running = false
+		}
 	}
 }
 
